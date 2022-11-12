@@ -47,7 +47,12 @@ class LoginView(APIView):
 
         token, _ = Token.objects.get_or_create(user=user)
 
-        return Response({"token": token.key}, status.HTTP_200_OK)
+        name = user.__dict__["first_name"]
+
+        return Response(
+            {"token": token.key, "user": name},
+            status.HTTP_200_OK,
+        )
 
 
 def get_ip_address(request):
